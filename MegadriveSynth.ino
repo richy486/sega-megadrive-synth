@@ -63,11 +63,6 @@ Mux M4(6, 16, false); //digital multiplexer on Arduino analog pin A0
 //**Command parameter is for future use**
 
 Pot PO1(A3, 0, 75, 0);    // Frequency Modulation Level
-//Pot PO2(A1, 0, 10, 1);
-//Pot PO3(A2, 0, 22, 1);
-//Pot PO4(A3, 0, 118, 1);
-//Pot PO5(A4, 0, 30, 1);
-//Pot PO6(A5, 0, 31, 1);
 //*******************************************************************
 //Add pots used to array below like this->  Pot *POTS[] {&PO1, &PO2, &PO3, &PO4, &PO5, &PO6};
 Pot *POTS[] {&PO1};
@@ -78,31 +73,7 @@ Pot *POTS[] {&PO1};
 //Button (Pin Number, Command, Note Number, Channel, Debounce Time)
 //** Command parameter 0=NOTE  1=CC  2=Toggle CC **
 
-//Button BU1(2, 0, 60, 1, 5 );
-//Button BU2(3, 0, 61, 1, 5 );
-//Button BU3(4, 0, 62, 1, 5 );
-//Button BU4(5, 0, 63, 1, 5 );
-//Button BU5(6, 0, 64, 1, 5 );
-//Button BU6(7, 0, 65, 1, 5 );
-//Button BU7(8, 1, 64, 1, 5 );
-//Button BU8(9, 2, 64, 1, 5 );
-
-// Pot(Mux mux, byte muxpin, byte command, byte control, byte channel)
-/*Pot MPO36(
-  M3,           // Mux mux,
-  3,            // byte muxpin,
-  0,            // byte command,
-  74,           // byte control,
-  0);           // byte channel
-    //LFO ENABLE 
-*/
-Button BU13(
-  13,           // Pin Number,
-  0,            // Command, 
-  74,           // Note Number,
-  0,            // Channel, 
-  5);           // Debounce Time
-  //LFO ENABLE
+Button BU13(13, 0, 74, 0, 5); //LFO ENABLE
 
 //*******************************************************************
 //Add buttons used to array below like this->  Button *BUTTONS[] {&BU1, &BU2, &BU3, &BU4, &BU5, &BU6, &BU7, &BU8};
@@ -228,14 +199,7 @@ pinMode(Midichannelomnipin, INPUT);
 
 void loop() {
 
-  //  if (MIDI.read())
-  {
-//    MIDI.send(MIDI.getType(),
-///              MIDI.getData1(),
-//              MIDI.getData2(),
-//              MIDI.getChannel());
-  }
-if (Serial.available() > 0) {
+  if (Serial.available() > 0) {
     midiByte = Serial.read() ;
     Serial.write(midiByte) ;
   }
@@ -246,18 +210,18 @@ if (Serial.available() > 0) {
   if (NUMBER_MUX_BUTTONS != 0) updateMuxButtons();
   if (NUMBER_MUX_POTS != 0) updateMuxPots();
 
- Midichannel1pinstate =    digitalRead(Midichannel1pin);
- Midichannel2pinstate =    digitalRead(Midichannel2pin);
- Midichannel3pinstate =    digitalRead(Midichannel3pin);
- Midichannel4pinstate =    digitalRead(Midichannel4pin);
- Midichannel5pinstate =    digitalRead(Midichannel5pin);
- Midichannelomnipinstate = digitalRead(Midichannelomnipin);
+  Midichannel1pinstate =    digitalRead(Midichannel1pin);
+  Midichannel2pinstate =    digitalRead(Midichannel2pin);
+  Midichannel3pinstate =    digitalRead(Midichannel3pin);
+  Midichannel4pinstate =    digitalRead(Midichannel4pin);
+  Midichannel5pinstate =    digitalRead(Midichannel5pin);
+  Midichannelomnipinstate = digitalRead(Midichannelomnipin);
 
       if ( Midichannel1pinstate == HIGH) {midichannel = 1;}
- else if ( Midichannel2pinstate == HIGH) {midichannel = 2;}
- else if ( Midichannel3pinstate == HIGH) {midichannel = 3;}
- else if ( Midichannel4pinstate == HIGH) {midichannel = 4;}
- else if ( Midichannel5pinstate == HIGH) {midichannel = 5;}
+  else if ( Midichannel2pinstate == HIGH) {midichannel = 2;}
+  else if ( Midichannel3pinstate == HIGH) {midichannel = 3;}
+  else if ( Midichannel4pinstate == HIGH) {midichannel = 4;}
+  else if ( Midichannel5pinstate == HIGH) {midichannel = 5;}
 
 }
 
